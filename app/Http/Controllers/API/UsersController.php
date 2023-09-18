@@ -285,14 +285,6 @@ class UsersController extends Controller
             ], 404);
         }
 
-        // Ensure the authenticated user matches the user being updated
-        if ($user && auth()->user() && $user->id !== auth()->user()->id) {
-            return response()->json([
-                'status' => 403,
-                'message' => 'Access denied',
-            ], 403);
-        }
-
         $request->validate([
             'name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:users,email,' . $user->id,
